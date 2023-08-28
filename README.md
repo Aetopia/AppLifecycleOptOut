@@ -41,7 +41,7 @@ Luckily, a developer may use the following for prolonged workloads that must be 
 Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent automatic suspension by the operating system.
 
 ## Usage
-1. Download the latest release from GitHub Releases.
+1. Download the latest release from [GitHub Releases](https://github.com/Aetopia/AppLifecycleOptOut/releases/latest).
 2. Use the following command in PowerShell to obtain current installed UWP apps along with their full package name.<br>
 
     **Command**:<br>
