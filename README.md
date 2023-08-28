@@ -43,4 +43,4 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
 
 ## Usage
 
-    
+    $AppxPackages = Get-AppxPackage; Get-StartApps | ForEach-Object { [Object]$StartApp = $_; [Object]$AppxPackage = $AppxPackages | Where-Object { $StartApp.AppID -like "$($_.PackageFamilyName)*" }; if ($AppxPackage) { Write-Host "$($StartApp.Name) : $($AppxPackage.PackageFullName)" } }
