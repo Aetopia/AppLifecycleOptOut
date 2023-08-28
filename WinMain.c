@@ -24,7 +24,7 @@ INT wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, INT
                                                               NULL,
                                                               NULL);
 
-    pPackageDebugSettings->lpVtbl->Release(pPackageDebugSettings);
+    (VOID) pPackageDebugSettings->lpVtbl->Release(pPackageDebugSettings);
     (VOID) LocalFree(rgszArgvW);
     (VOID) CoUninitialize();
 
