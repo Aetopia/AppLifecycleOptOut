@@ -36,11 +36,32 @@ Luckily, a developer may use the following for prolonged workloads that must be 
     - Disables automatic process resumption.
 
     > [!NOTE] 
-    > Must be called from a Win32 application.
-    > More Information on []`IPackageDebugSettings::EnableDebugging`](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging).
+    > Must be called from a Win32 application.<br>
+    > More Information on [`IPackageDebugSettings::EnableDebugging`](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging).
 
 Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent automatic suspension by the operating system.
 
 ## Usage
-
+1. Download the latest release from GitHub Releases.
+2. Use the following command in PowerShell to obtain current installed UWP apps along with their full package name:<br>
+    **Command**:<br>
+    ```ps
     $AppxPackages = Get-AppxPackage; Get-StartApps | ForEach-Object { [Object]$StartApp = $_; [Object]$AppxPackage = $AppxPackages | Where-Object { $StartApp.AppID -like "$($_.PackageFamilyName)*" }; if ($AppxPackage) { Write-Host "$($StartApp.Name) : $($AppxPackage.PackageFullName)" } }
+    ```
+
+    **Output**:<br>
+    ```ps
+    Settings : windows.immersivecontrolpanel_10.0.2.1000_neutral_neutral_cw5n1h2txyewy
+    ```
+3. Provide the full package names of the UWP apps that shouldn't be suspended by the operating system to `AppLifecycleOptOut.exe` like this:<br>
+
+    ```ps
+    AppLifecycleOptOut.exe PackageFullName1 PackageFullName2 PackageFullName3
+    ```
+    > [!NOTE]
+    > You need to simply run the program, everytime you log in.
+    > If an app is still getting suspended after running the program, verify the provided full package names.
+
+## Building
+1. Install [`GCC`](https://github.com/brechtsanders/winlibs_mingw) and [`UPX`](https://upx.github.io) for optional compression.
+2. Run `Build.bat`.
