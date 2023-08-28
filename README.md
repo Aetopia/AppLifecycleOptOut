@@ -27,7 +27,7 @@ Luckily, a developer may use the following for prolonged workloads that must be 
     > [!NOTE]
     > Must be called from a WinRT application.
 
-3. **[`IPackageDebugSettings`](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipackagedebugsettings)**:<br>
+3. **[`IPackageDebugSettings::EnableDebugging`](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging).**:<br>
     This following may be used to enable debug mode for a UWP app, when enabled the following happens:<br>     
     - Optionally enables debugger attach on activation.
     - Disables activation timeouts.
@@ -36,8 +36,7 @@ Luckily, a developer may use the following for prolonged workloads that must be 
     - Disables automatic process resumption.
 
     > [!NOTE] 
-    > Must be called from a Win32 application.<br>
-    > More Information on [`IPackageDebugSettings::EnableDebugging`](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging).
+    > Must be called from a Win32 application.
 
 Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent automatic suspension by the operating system.
 
