@@ -34,7 +34,8 @@ Luckily, a developer may use the following for prolonged workloads that must be 
     - Disables automatic process suspension.
     - Disables automatic process termination.
     - Disables automatic process resumption.
-
+    <br>
+    
     > [!NOTE] 
     > Must be called from a Win32 application.
 
