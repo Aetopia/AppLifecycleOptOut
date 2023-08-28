@@ -58,7 +58,7 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
     AppLifecycleOptOut.exe PackageFullName1 PackageFullName2 PackageFullName3
     ```
     > [!NOTE]
-    > You need to simply run the program, everytime you log in.
+    > You need to simply run the program, everytime you log in.<br>
     > If an app is still getting suspended after running the program, verify the provided full package names.
 
 ## Building
