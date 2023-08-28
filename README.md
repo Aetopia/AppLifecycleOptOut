@@ -42,7 +42,7 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
 
 ## Usage
 1. Download the latest release from GitHub Releases.
-2. Use the following command in PowerShell to obtain current installed UWP apps along with their full package name.<br><br>
+2. Use the following command in PowerShell to obtain current installed UWP apps along with their full package name.<br>
 
     **Command**:<br>
     ```ps
@@ -53,7 +53,6 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
     ```ps
     Settings : windows.immersivecontrolpanel_10.0.2.1000_neutral_neutral_cw5n1h2txyewy
     ```
-    <br>
 
 3. Provide the full package names of the UWP apps that shouldn't be suspended by the operating system to `AppLifecycleOptOut.exe` like this:<br>
 
