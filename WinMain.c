@@ -27,6 +27,10 @@ INT wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, INT
          iIndex < iNumArgs;
          iIndex += 1)
     {
+        (VOID) pPackageDebugSettings->lpVtbl->EnableDebugging(pPackageDebugSettings,
+                                                              rgszArgvW[iIndex],
+                                                              NULL,
+                                                              NULL);
         if (GetPackagesByPackageFamily(rgszArgvW[iIndex],
                                        &u32Count,
                                        NULL,

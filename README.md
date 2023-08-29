@@ -43,26 +43,27 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
 
 ## Usage
 1. Download the latest release from [GitHub Releases](https://github.com/Aetopia/AppLifecycleOptOut/releases/latest).
-2. Use the following command in PowerShell to obtain current installed UWP apps along with their package family name.<br>
+2. Use the following command in PowerShell to obtain current installed UWP apps along with their package family and full names.<br>
 
     **Command**:<br>
     ```ps
-    $AppxPackages = Get-AppxPackage; Get-StartApps | ForEach-Object { [Object]$StartApp = $_; [Object]$AppxPackage = $AppxPackages | Where-Object { $StartApp.AppID -like "$($_.PackageFamilyName)*" }; if ($AppxPackage) { Write-Host "$($StartApp.Name) : $($AppxPackage.PackageFamilyName)" } }
+    $AppxPackages = Get-AppxPackage; Get-StartApps | ForEach-Object { [Object]$StartApp = $_; [Object]$AppxPackage = $AppxPackages | Where-Object { $StartApp.AppID -like "$($_.PackageFamilyName)*" }; if ($AppxPackage) { Write-Host "$($StartApp.Name) : $($AppxPackage.PackageFamilyName) : $($AppxPackage.PackageFullName)" } }
     ```
 
     **Output**:<br>
     ```ps
-    Settings : windows.immersivecontrolpanel_cw5n1h2txyewy
+    Settings : windows.immersivecontrolpanel_cw5n1h2txyewy : windows.immersivecontrolpanel_10.0.2.1000_neutral_neutral_cw5n1h2txyewy
     ```
 
 3. Provide the full package names of the UWP apps that shouldn't be suspended by the operating system to `AppLifecycleOptOut.exe` like this:<br>
 
     ```ps
-    AppLifecycleOptOut.exe PackageFamilyName1 PackageFamilyName2 PackageFamilyName3
+    AppLifecycleOptOut.exe PackageFamilyName1 PackageFullName1 PackageFamilyName2 PackageFullName2
     ```
     > [!NOTE]
     > You need to simply run the program, everytime you log in.<br>
-    > If an app is still getting suspended after running the program, verify the provided package family names.
+    > If an app is still getting suspended after running the program, verify the provided package family and full names.
+    > You will need to re-run this program, if you update/downgrade an app.
 
 ## Building
 1. Install [`GCC`](https://github.com/brechtsanders/winlibs_mingw) and [`UPX`](https://upx.github.io) for optional compression.
