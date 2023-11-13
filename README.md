@@ -10,7 +10,7 @@ The following image showcases the possible app model states, an application may 
 The main intent of this application model is for power saving and reduction in system usage.
 
 In certain instances, it might be desirable to prevent an app from suspending, potential reasons include:<br>
-1. For performing prolonged workload when in the background.
+1. For performing prolonged workloads when in the background.
 2. Prevention of undesirable behavior occuring in apps due to UWP app suspension.
 
 Luckily, a developer may use the following for prolonged workloads that must be done when an UWP app is in the background:<br>
