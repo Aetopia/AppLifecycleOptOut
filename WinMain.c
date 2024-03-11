@@ -4,59 +4,35 @@
 #include <appmodel.h>
 #include <shobjidl.h>
 
-INT wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, INT nShowCmd)
+int WinMainCRTStartup()
 {
-    INT iNumArgs = 0;
-    PWSTR *rgszArgvW = CommandLineToArgvW(lpCmdLine, &iNumArgs),
-          *rgszPackageFullNames = NULL,
-          pBuffer = NULL;
-    IPackageDebugSettings *pPackageDebugSettings = NULL;
-    UINT32 u32Index = 0,
-           u32Count = 0,
-           u32BufferLength = 0;
+    INT NumArgs = 0;
+    LPWSTR *ArgvW = CommandLineToArgvW(GetCommandLineW(), &NumArgs);
     HANDLE hHeap = GetProcessHeap();
 
-    (VOID) CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-    (VOID) CoCreateInstance(&CLSID_PackageDebugSettings,
-                            NULL,
-                            CLSCTX_INPROC_SERVER,
-                            &IID_IPackageDebugSettings,
-                            (LPVOID *)&pPackageDebugSettings);
+    CoInitialize(NULL);
+    IPackageDebugSettings *pPackageDebugSettings = NULL;
+    CoCreateInstance(&CLSID_PackageDebugSettings, NULL, CLSCTX_INPROC_SERVER, &IID_IPackageDebugSettings,
+                     (LPVOID *)&pPackageDebugSettings);
 
-    for (INT iIndex = 0;
-         iIndex < iNumArgs;
-         iIndex += 1)
+    for (INT nArg = 0; nArg < NumArgs; nArg++)
     {
-        (VOID) pPackageDebugSettings->lpVtbl->EnableDebugging(pPackageDebugSettings,
-                                                              rgszArgvW[iIndex],
-                                                              NULL,
-                                                              NULL);
-        if (GetPackagesByPackageFamily(rgszArgvW[iIndex],
-                                       &u32Count,
-                                       NULL,
-                                       &u32BufferLength,
-                                       NULL) != ERROR_INSUFFICIENT_BUFFER)
+        UINT32 count = 0, bufferLength = 0;
+        PCWSTR packageFamilyName = ArgvW[nArg];
+
+        if (GetPackagesByPackageFamily(packageFamilyName, &count, NULL, &bufferLength, NULL) !=
+            ERROR_INSUFFICIENT_BUFFER)
             continue;
-        rgszPackageFullNames = HeapAlloc(hHeap, HEAP_ZERO_MEMORY, sizeof(PWSTR) * u32Count);
-        pBuffer = HeapAlloc(hHeap, HEAP_ZERO_MEMORY, sizeof(WCHAR) * u32BufferLength);
-        if (GetPackagesByPackageFamily(rgszArgvW[iIndex],
-                                       &u32Count,
-                                       rgszPackageFullNames,
-                                       &u32BufferLength,
-                                       pBuffer) == ERROR_SUCCESS)
-            for (u32Index = 0; u32Index < u32Count; u32Index += 1)
-                (VOID) pPackageDebugSettings->lpVtbl->EnableDebugging(pPackageDebugSettings,
-                                                                      rgszPackageFullNames[u32Index],
-                                                                      NULL,
-                                                                      NULL);
-        (VOID) HeapFree(hHeap, 0, rgszPackageFullNames);
-        (VOID) HeapFree(hHeap, 0, pBuffer);
+
+        PWSTR *packageFullNames = HeapAlloc(hHeap, HEAP_ZERO_MEMORY, sizeof(PWSTR) * count),
+              buffer = HeapAlloc(hHeap, HEAP_ZERO_MEMORY, sizeof(WCHAR) * bufferLength);
+
+        if (!GetPackagesByPackageFamily(packageFamilyName, &count, packageFullNames, &bufferLength, buffer))
+            for (UINT32 nIndex = 0; nIndex < count; nIndex++)
+                pPackageDebugSettings->lpVtbl->EnableDebugging(pPackageDebugSettings, packageFullNames[nIndex], NULL,
+                                                               NULL);
     }
 
-    (VOID) pPackageDebugSettings->lpVtbl->Release(pPackageDebugSettings);
-    (VOID) CloseHandle(hHeap);
-    (VOID) LocalFree(rgszArgvW);
-    (VOID) CoUninitialize();
-
-    return EXIT_SUCCESS;
+    ExitProcess(0);
+    return 0;
 }

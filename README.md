@@ -16,7 +16,7 @@ In certain instances, it might be desirable to prevent an app from suspending, p
 Luckily, a developer may use the following for prolonged workloads that must be done when an UWP app is in the background:<br>
 
 1. **[`ExtendedExecutionSession`](https://learn.microsoft.com/en-us/uwp/api/windows.applicationmodel.extendedexecution.extendedexecutionsession)**:<br>
-    The following may be used to request more time for performing the specified workload before suspended by the operating system, unfortunately this simply delays suspension doesn't prevent it.
+    The following may be used to request more time for performing the specified workload before being suspended by the operating system, unfortunately this simply delays suspension doesn't prevent it.
 
 2. **[`ExtendedExecutionForegroundSession`](https://learn.microsoft.com/en-us/uwp/api/windows.applicationmodel.extendedexecution.foreground.extendedexecutionforegroundsession)**:<br>
     The following may be used to prevent an UWP app from being suspended by the operating system, although this fulfills our needs, it prevents an UWP app from being published on the Microsoft Store.
@@ -38,12 +38,22 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
 
     **Command**:<br>
     ```ps
-    $AppxPackages = Get-AppxPackage; Get-StartApps | ForEach-Object { [Object]$StartApp = $_; [Object]$AppxPackage = $AppxPackages | Where-Object { $StartApp.AppID -like "$($_.PackageFamilyName)*" }; if ($AppxPackage) { Write-Host "$($StartApp.Name) : $($AppxPackage.PackageFamilyName) : $($AppxPackage.PackageFullName)" } }
+    $AppxPackages = Get-AppxPackage 
+    Get-StartApps | 
+    ForEach-Object { 
+        [Object]$StartApp = $_
+        [Object]$AppxPackage = $AppxPackages |  Where-Object { $StartApp.AppID -like "$($_.PackageFamilyName)*" }
+        if ($AppxPackage) { 
+            Write-Host "$($StartApp.Name):`n`t$($AppxPackage.PackageFamilyName)`n`t$($AppxPackage.PackageFullName)`n" 
+        } 
+    }
     ```
 
     **Output**:<br>
-    ```ps
-    Settings : windows.immersivecontrolpanel_cw5n1h2txyewy : windows.immersivecontrolpanel_10.0.2.1000_neutral_neutral_cw5n1h2txyewy
+    ```
+    Settings:
+            windows.immersivecontrolpanel_cw5n1h2txyewy
+            windows.immersivecontrolpanel_10.0.2.1000_neutral_neutral_cw5n1h2txyewy
     ```
 
 3. Provide the full package names of the UWP apps that shouldn't be suspended by the operating system to `AppLifecycleOptOut.exe` like this:<br>
@@ -51,11 +61,11 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
     ```ps
     AppLifecycleOptOut.exe PackageFamilyName1 PackageFullName1 PackageFamilyName2 PackageFullName2
     ```
-    > [!NOTE]
-    > You need to simply run the program, everytime you log in.<br>
-    > If an app is still getting suspended after running the program, verify the provided package family and full names.
-    > You will need to re-run this program, if you update/downgrade an app.
+> [!IMPORTANT]
+> You need to simply run the program, everytime you log in.<br>
+> If an app is still getting suspended after running the program, verify the provided package family and full names.
+> You will need to re-run this program, if you update/downgrade an app.
 
 ## Building
 1. Install [`GCC`](https://github.com/brechtsanders/winlibs_mingw) and [`UPX`](https://upx.github.io) for optional compression.
-2. Run `Build.bat`.
+2. Run `Build.cmd`.
