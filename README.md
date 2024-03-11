@@ -62,8 +62,9 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
     AppLifecycleOptOut.exe PackageFamilyName1 PackageFullName1 PackageFamilyName2 PackageFullName2
     ```
 > [!IMPORTANT]
-> You need to simply run the program, everytime you log in.<br>
-> If possible always specify package family names, this way the program can resolve package names correctly.
+> - You need to simply run the program, everytime you log in.<br>
+> - If possible always specify package family names, this way the program can resolve package full names correctly.<br>
+> - Use package full names, if you need to use the program with any loose package.
 
 ## Building
 1. Install [`GCC`](https://github.com/brechtsanders/winlibs_mingw) and [`UPX`](https://upx.github.io) for optional compression.
