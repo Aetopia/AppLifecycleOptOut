@@ -63,8 +63,7 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
     ```
 > [!IMPORTANT]
 > You need to simply run the program, everytime you log in.<br>
-> If an app is still getting suspended after running the program, verify the provided package family and full names.
-> You will need to re-run this program, if you update/downgrade an app.
+> If possible always specify package family names, this way the program can resolve package names correctly.
 
 ## Building
 1. Install [`GCC`](https://github.com/brechtsanders/winlibs_mingw) and [`UPX`](https://upx.github.io) for optional compression.
