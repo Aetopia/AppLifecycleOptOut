@@ -68,4 +68,4 @@ Out of the 3 methods, the 3rd one maybe used safely with any UWP app to prevent 
 
 ## Building
 1. Install [`GCC`](https://github.com/brechtsanders/winlibs_mingw) and [`UPX`](https://upx.github.io) for optional compression.
-2. Run `Build.cmd`.
+2. Run [`Build.cmd`](Build.cmd).
