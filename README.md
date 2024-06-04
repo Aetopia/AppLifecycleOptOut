@@ -22,7 +22,7 @@ Luckily, a developer may use the following for prolonged workloads that must be 
     The following may be used to prevent an UWP app from being suspended by the operating system, although this fulfills our needs, it prevents an UWP app from being published on the Microsoft Store.
     
 3. **[`IPackageDebugSettings::EnableDebugging`](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging)**:<br>
-    This following may be used to enable debug mode for a UWP app, when enabled the following happens:<br>     
+    This following may be used to enable debug mode for an UWP app, when enabled the following happens:<br>     
     - Optionally enables debugger attach on activation.
     - Disables activation timeouts.
     - Disables automatic process suspension.
