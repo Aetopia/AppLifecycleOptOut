@@ -1,6 +1,6 @@
 > [!WARNING]
-> AppLifecycleOptOut was originally made to fix issues caused by app suspension in Minecraft: Bedrock Edition.<br>
 > AppLifecycleOptOut has been deprecated in favor of [Stonecutter](https://github.com/Aetopia/Stonecutter).<br>
+> AppLifecycleOptOut was originally made to fix issues caused by app suspension in Minecraft: Bedrock Edition.<br>
 > Stonecutter focuses on fixing known bugs on Mojang's bug tracker for [Minecraft: Bedrock Edtion](https://bugs.mojang.com/projects/MCPE/summary).<br>
 
 # AppLifecycleOptOut
